@@ -1,0 +1,21 @@
+// Currency list with common currencies first.
+export const CURRENCIES: { code: string; name: string; symbol: string }[] = [
+  { code: 'GHS', name: 'Ghanaian Cedi', symbol: 'GH₵' },
+  { code: 'NGN', name: 'Nigerian Naira', symbol: '₦' },
+  { code: 'ZAR', name: 'South African Rand', symbol: 'R' },
+  { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh' },
+  { code: 'USD', name: 'US Dollar', symbol: '$' },
+  { code: 'EUR', name: 'Euro', symbol: '€' },
+  { code: 'GBP', name: 'British Pound', symbol: '£' },
+  { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$' },
+  { code: 'AUD', name: 'Australian Dollar', symbol: 'A$' },
+  { code: 'CNY', name: 'Chinese Yuan', symbol: '¥' },
+  { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+  { code: 'JPY', name: 'Japanese Yen', symbol: '¥' },
+  { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ' },
+  { code: 'SAR', name: 'Saudi Riyal', symbol: 'SR' },
+  { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF' },
+  { code: 'SEK', name: 'Swedish Krona', symbol: 'kr' },
+  { code: 'BRL', name: 'Brazilian Real', symbol: 'R$' },
+  { code: 'MXN', name: 'Mexican Peso', symbol: 'MX$' },
+]
