@@ -1,0 +1,2724 @@
+{
+  "groups": [
+    {
+      "id": "frontDesk",
+      "key": "nav.eduFrontDesk",
+      "path": "front-desk",
+      "icon": "phone",
+      "leaves": [
+        {
+          "id": "enquiries",
+          "key": "nav.eduEnquiries",
+          "path": "enquiries",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Enquirer name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "source",
+              "label": "Source",
+              "type": "select",
+              "options": [
+                "Walk-in",
+                "Phone",
+                "Website",
+                "Referral"
+              ]
+            },
+            {
+              "key": "phone",
+              "label": "Phone",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "label": "Enquiry date",
+              "type": "date"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Pending",
+                "Converted",
+                "Closed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "visitors",
+          "key": "nav.eduVisitors",
+          "path": "visitors",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Visitor name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "purpose",
+              "label": "Purpose",
+              "type": "text"
+            },
+            {
+              "key": "meetWith",
+              "label": "Person to meet",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "label": "Visit date",
+              "type": "date"
+            },
+            {
+              "key": "badgeNo",
+              "label": "Badge No",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "phoneCalls",
+          "key": "nav.eduPhoneCalls",
+          "path": "phone-calls",
+          "fields": [
+            {
+              "key": "caller",
+              "label": "Caller",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "phone",
+              "label": "Phone",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "label": "Call date",
+              "type": "date"
+            },
+            {
+              "key": "message",
+              "label": "Message",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Pending",
+                "Returned",
+                "Resolved"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "postalMail",
+          "key": "nav.eduPostalMail",
+          "path": "postal-mail",
+          "fields": [
+            {
+              "key": "direction",
+              "label": "Direction",
+              "type": "select",
+              "options": [
+                "Receipt",
+                "Dispatch"
+              ]
+            },
+            {
+              "key": "reference",
+              "label": "Reference",
+              "type": "text"
+            },
+            {
+              "key": "details",
+              "label": "Details",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "label": "Date",
+              "type": "date"
+            },
+            {
+              "key": "handledBy",
+              "label": "Handled by",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "academic",
+      "key": "nav.eduAcademic",
+      "path": "academic",
+      "icon": "book",
+      "leaves": [
+        {
+          "id": "programme",
+          "key": "nav.eduProgramme",
+          "path": "programme",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Programme name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "code",
+              "label": "Programme code",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "academicYear",
+          "key": "nav.eduAcademicYear",
+          "path": "academic-year",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Academic year",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "startDate",
+              "label": "Start date",
+              "type": "date"
+            },
+            {
+              "key": "endDate",
+              "label": "End date",
+              "type": "date"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Closed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "key": "nav.eduLevel",
+          "path": "level",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Level name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "programme",
+              "label": "Programme",
+              "type": "select",
+              "source": "programme",
+              "valueKey": "name"
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "termSemester",
+          "key": "nav.eduTermSemester",
+          "path": "term-semester",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Term / Semester name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "academicYear",
+              "label": "Academic year",
+              "type": "select",
+              "source": "academicYear",
+              "valueKey": "name"
+            },
+            {
+              "key": "startDate",
+              "label": "Start date",
+              "type": "date"
+            },
+            {
+              "key": "endDate",
+              "label": "End date",
+              "type": "date"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Closed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classes",
+      "key": "nav.eduClasses",
+      "path": "classes",
+      "icon": "building",
+      "leaves": [
+        {
+          "id": "classList",
+          "key": "nav.eduClassList",
+          "path": "class-list",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Class name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "level",
+              "label": "Level",
+              "type": "select",
+              "source": "level",
+              "valueKey": "name"
+            },
+            {
+              "key": "section",
+              "label": "Class group",
+              "type": "text"
+            },
+            {
+              "key": "classTeacher",
+              "label": "Class teacher",
+              "type": "select",
+              "source": "staffList",
+              "valueKey": "name"
+            },
+            {
+              "key": "room",
+              "label": "Room",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "academicSections",
+          "key": "nav.eduSections",
+          "path": "sections",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Section name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "capacity",
+              "label": "Capacity",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "id": "assignClassTeacher",
+          "key": "nav.eduAssignClassTeacher",
+          "path": "assign-class-teacher",
+          "fields": [
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "teacher",
+              "label": "Teacher",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "session",
+              "label": "Session",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "subjects",
+      "key": "nav.eduSubjects",
+      "path": "subjects",
+      "icon": "layers",
+      "leaves": [
+        {
+          "id": "subjectList",
+          "key": "nav.eduSubjectList",
+          "path": "subject-list",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Subject name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "code",
+              "label": "Code",
+              "type": "text"
+            },
+            {
+              "key": "teacher",
+              "label": "Teacher",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "subjectGroup",
+          "key": "nav.eduSubjectGroup",
+          "path": "subject-group",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Subject group name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "code",
+              "label": "Code",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "assignSubjectTeacher",
+          "key": "nav.eduAssignSubjectTeacher",
+          "path": "assign-subject-teacher",
+          "fields": [
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "teacher",
+              "label": "Teacher",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "periodsPerWeek",
+              "label": "Periods per week",
+              "type": "number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timetable",
+      "key": "nav.eduTimetable",
+      "path": "timetable",
+      "icon": "calendarDays",
+      "leaves": [
+        {
+          "id": "classTimetable",
+          "key": "nav.eduClassTimetable",
+          "path": "class-timetable",
+          "fields": [
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "day",
+              "label": "Day",
+              "type": "select",
+              "options": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+              ]
+            },
+            {
+              "key": "period",
+              "label": "Period",
+              "type": "text"
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text"
+            },
+            {
+              "key": "teacher",
+              "label": "Teacher",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "teacherTimetable",
+          "key": "nav.eduTeacherTimetable",
+          "path": "teacher-timetable",
+          "fields": [
+            {
+              "key": "teacher",
+              "label": "Teacher",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "day",
+              "label": "Day",
+              "type": "select",
+              "options": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+              ]
+            },
+            {
+              "key": "period",
+              "label": "Period",
+              "type": "text"
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "timetableRules",
+          "key": "nav.eduTimetableRules",
+          "path": "timetable-rules",
+          "fields": []
+        },
+        {
+          "id": "roomAllocation",
+          "key": "nav.eduRoomAllocation",
+          "path": "room-allocation",
+          "fields": [
+            {
+              "key": "room",
+              "label": "Room",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "day",
+              "label": "Day",
+              "type": "select",
+              "options": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+              ]
+            },
+            {
+              "key": "period",
+              "label": "Period",
+              "type": "select",
+              "options": [
+                "Period 1",
+                "Period 2",
+                "Period 3",
+                "Period 4",
+                "Period 5",
+                "Period 6",
+                "Period 7",
+                "Period 8"
+              ]
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text"
+            },
+            {
+              "key": "teacher",
+              "label": "Teacher",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "print",
+          "key": "nav.eduPrint",
+          "path": "print",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "attendance",
+      "key": "nav.eduAttendance",
+      "path": "attendance",
+      "icon": "calendarCheck",
+      "leaves": [
+        {
+          "id": "studentAttendance",
+          "key": "nav.eduStudentAttendance",
+          "path": "student-attendance",
+          "fields": [
+            {
+              "key": "date",
+              "label": "Date",
+              "type": "date",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Present",
+                "Absent",
+                "Late"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "teacherAttendance",
+          "key": "nav.eduTeacherAttendance",
+          "path": "teacher-attendance",
+          "fields": [
+            {
+              "key": "date",
+              "label": "Date",
+              "type": "date",
+              "required": true
+            },
+            {
+              "key": "teacher",
+              "label": "Teacher",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Present",
+                "Absent",
+                "On Leave"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "attendanceReports",
+          "key": "nav.eduAttendanceReports",
+          "path": "attendance-reports",
+          "fields": [
+            {
+              "key": "period",
+              "label": "Period",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "present",
+              "label": "Present days",
+              "type": "number"
+            },
+            {
+              "key": "absent",
+              "label": "Absent days",
+              "type": "number"
+            },
+            {
+              "key": "late",
+              "label": "Late days",
+              "type": "number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "students",
+      "key": "nav.eduStudents",
+      "path": "students",
+      "icon": "users",
+      "leaves": [
+        {
+          "id": "studentList",
+          "key": "nav.eduStudentList",
+          "path": "student-list",
+          "fields": [
+            {
+              "key": "admissionNo",
+              "label": "Admission No",
+              "type": "text"
+            },
+            {
+              "key": "name",
+              "label": "Student name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "rollNo",
+              "label": "Roll No",
+              "type": "text"
+            },
+            {
+              "key": "guardian",
+              "label": "Guardian",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "label": "Phone",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Inactive"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "studentRegistration",
+          "key": "nav.eduStudentRegistration",
+          "path": "student-registration",
+          "fields": [
+            {
+              "key": "admissionNo",
+              "label": "Admission No",
+              "type": "text"
+            },
+            {
+              "key": "name",
+              "label": "Student name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "rollNo",
+              "label": "Roll No",
+              "type": "text"
+            },
+            {
+              "key": "dateOfBirth",
+              "label": "Date of birth",
+              "type": "date"
+            },
+            {
+              "key": "gender",
+              "label": "Gender",
+              "type": "select",
+              "options": [
+                "Male",
+                "Female"
+              ]
+            },
+            {
+              "key": "guardian",
+              "label": "Guardian",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "label": "Phone",
+              "type": "text"
+            },
+            {
+              "key": "admissionDate",
+              "label": "Admission date",
+              "type": "date"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Inactive"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "parents",
+          "key": "nav.eduParents",
+          "path": "parents",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Parent name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "select",
+              "source": "studentList",
+              "valueKey": "name"
+            },
+            {
+              "key": "relation",
+              "label": "Relation",
+              "type": "select",
+              "options": [
+                "Mother",
+                "Father",
+                "Guardian"
+              ]
+            },
+            {
+              "key": "occupation",
+              "label": "Occupation",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "label": "Phone",
+              "type": "text"
+            },
+            {
+              "key": "email",
+              "label": "Email",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "studentAttendance",
+          "key": "nav.eduAttendance",
+          "path": "attendance",
+          "fields": [
+            {
+              "key": "date",
+              "label": "Date",
+              "type": "date",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Present",
+                "Absent",
+                "Late"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pastStudents",
+          "key": "nav.eduPastStudents",
+          "path": "past-students",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Student name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "admissionNo",
+              "label": "Admission No",
+              "type": "text"
+            },
+            {
+              "key": "className",
+              "label": "Last class",
+              "type": "text"
+            },
+            {
+              "key": "session",
+              "label": "Session",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Graduated",
+                "Left"
+              ]
+            },
+            {
+              "key": "remarks",
+              "label": "Remarks",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "withdrawnStudents",
+          "key": "nav.eduWithdrawnStudents",
+          "path": "withdrawn-students",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Student name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "admissionNo",
+              "label": "Admission No",
+              "type": "text"
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "withdrawalDate",
+              "label": "Withdrawal date",
+              "type": "date"
+            },
+            {
+              "key": "reason",
+              "label": "Reason",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "prefectsLeadership",
+          "key": "nav.eduPrefectsLeadership",
+          "path": "prefects-leadership",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "select",
+              "required": true,
+              "source": "studentList",
+              "valueKey": "name"
+            },
+            {
+              "key": "position",
+              "label": "Position",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "house",
+              "label": "House",
+              "type": "text"
+            },
+            {
+              "key": "appointedOn",
+              "label": "Appointed on",
+              "type": "date"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "studentFinance",
+      "key": "nav.eduStudentFinance",
+      "path": "student-finance",
+      "icon": "wallet",
+      "leaves": [
+        {
+          "id": "feeCollection",
+          "key": "nav.eduPayments",
+          "path": "payments",
+          "fields": [
+            {
+              "key": "receiptNo",
+              "label": "Receipt No",
+              "type": "text"
+            },
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "amount",
+              "label": "Amount",
+              "type": "number",
+              "required": true
+            },
+            {
+              "key": "method",
+              "label": "Payment method",
+              "type": "select",
+              "options": [
+                "Cash",
+                "Mobile Money",
+                "Bank"
+              ]
+            },
+            {
+              "key": "date",
+              "label": "Payment date",
+              "type": "date"
+            }
+          ]
+        },
+        {
+          "id": "paymentReports",
+          "key": "nav.eduPaymentReports",
+          "path": "payment-reports",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "receiptNo",
+              "label": "Receipt No",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "date",
+              "label": "Payment date",
+              "type": "date"
+            },
+            {
+              "key": "amount",
+              "label": "Amount",
+              "type": "number"
+            },
+            {
+              "key": "method",
+              "label": "Payment method",
+              "type": "select",
+              "options": [
+                "Cash",
+                "Mobile Money",
+                "Bank"
+              ]
+            },
+            {
+              "key": "collectedBy",
+              "label": "Collected by",
+              "type": "text",
+              "required": false
+            }
+          ]
+        },
+        {
+          "id": "debtorsList",
+          "key": "nav.eduDebtorsList",
+          "path": "debtors-list",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "outstanding",
+              "label": "Outstanding amount",
+              "type": "number"
+            },
+            {
+              "key": "dueDate",
+              "label": "Due date",
+              "type": "date"
+            },
+            {
+              "key": "remarks",
+              "label": "Remarks",
+              "type": "text",
+              "required": false
+            }
+          ]
+        },
+        {
+          "id": "studentBilling",
+          "key": "nav.eduStudentBilling",
+          "path": "student-billing",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "billingDate",
+              "label": "Billing date",
+              "type": "date"
+            },
+            {
+              "key": "amount",
+              "label": "Amount",
+              "type": "number"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Unpaid",
+                "Paid",
+                "Partial"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "billReminder",
+          "key": "nav.eduBillReminder",
+          "path": "bill-reminder",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "reminderDate",
+              "label": "Reminder date",
+              "type": "date"
+            },
+            {
+              "key": "channel",
+              "label": "Channel",
+              "type": "select",
+              "options": [
+                "SMS",
+                "Email",
+                "Print"
+              ]
+            },
+            {
+              "key": "message",
+              "label": "Message",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Pending",
+                "Sent"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feesCarryForward",
+          "key": "nav.eduFeesCarryForward",
+          "path": "fees-carry-forward",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "fromSession",
+              "label": "From session",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "toSession",
+              "label": "To session",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "amount",
+              "label": "Amount",
+              "type": "number"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Pending",
+                "Carried"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "scholarships",
+          "key": "nav.eduScholarships",
+          "path": "scholarships",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "type",
+              "label": "Scholarship type",
+              "type": "text"
+            },
+            {
+              "key": "amount",
+              "label": "Amount",
+              "type": "number"
+            },
+            {
+              "key": "session",
+              "label": "Session",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "studentFinanceReport",
+          "key": "nav.eduStudentFinanceReport",
+          "path": "student-finance-report",
+          "fields": [
+            {
+              "key": "title",
+              "label": "Report title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "fromDate",
+              "label": "From date",
+              "type": "date"
+            },
+            {
+              "key": "toDate",
+              "label": "To date",
+              "type": "date"
+            },
+            {
+              "key": "type",
+              "label": "Report type",
+              "type": "select",
+              "options": [
+                "Collections",
+                "Outstanding",
+                "Summary"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "staff",
+      "key": "nav.eduStaff",
+      "path": "staff",
+      "icon": "staff",
+      "leaves": [
+        {
+          "id": "staffList",
+          "key": "nav.eduStaffList",
+          "path": "staff-list",
+          "fields": [
+            {
+              "key": "staffNo",
+              "label": "Staff No",
+              "type": "text"
+            },
+            {
+              "key": "name",
+              "label": "Staff name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "designation",
+              "label": "Designation",
+              "type": "text"
+            },
+            {
+              "key": "department",
+              "label": "Department",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "label": "Phone",
+              "type": "text"
+            },
+            {
+              "key": "email",
+              "label": "Email",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Inactive"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "departments",
+          "key": "nav.eduDepartments",
+          "path": "departments",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Department name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "head",
+              "label": "Head of department",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "designations",
+          "key": "nav.eduDesignations",
+          "path": "designations",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Designation name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "department",
+              "label": "Department",
+              "type": "text"
+            },
+            {
+              "key": "grade",
+              "label": "Grade",
+              "type": "text"
+            }
+          ],
+          "hidden": true
+        },
+        {
+          "id": "staffLeave",
+          "key": "nav.eduStaffLeave",
+          "path": "staff-leave",
+          "fields": [
+            {
+              "key": "staff",
+              "label": "Staff member",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "type",
+              "label": "Leave type",
+              "type": "select",
+              "options": [
+                "Sick",
+                "Casual",
+                "Annual",
+                "Unpaid"
+              ]
+            },
+            {
+              "key": "from",
+              "label": "From",
+              "type": "date"
+            },
+            {
+              "key": "to",
+              "label": "To",
+              "type": "date"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Pending",
+                "Approved",
+                "Rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "staffCategories",
+          "key": "nav.eduStaffCategories",
+          "path": "staff-categories",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Category name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ],
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "lessonPlan",
+      "key": "nav.eduLessonPlan",
+      "path": "lesson-plan",
+      "icon": "clipboard",
+      "leaves": [
+        {
+          "id": "lessonPlans",
+          "key": "nav.eduLessonPlans",
+          "path": "lesson-plans",
+          "fields": [
+            {
+              "key": "teacher",
+              "label": "Teacher",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text"
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "week",
+              "label": "Week starting",
+              "type": "date"
+            },
+            {
+              "key": "topic",
+              "label": "Topic",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Draft",
+                "Approved"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lessonPlanApprovals",
+          "key": "nav.eduLessonPlanApprovals",
+          "path": "lesson-plan-approvals",
+          "fields": [
+            {
+              "key": "teacher",
+              "label": "Teacher",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "topic",
+              "label": "Topic",
+              "type": "text"
+            },
+            {
+              "key": "submittedOn",
+              "label": "Submitted on",
+              "type": "date"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Pending",
+                "Approved",
+                "Returned"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "examinations",
+      "key": "nav.eduExaminations",
+      "path": "examinations",
+      "icon": "file",
+      "leaves": [
+        {
+          "id": "examHall",
+          "key": "nav.eduExamHall",
+          "path": "exam-hall",
+          "fields": [
+            {
+              "key": "hallName",
+              "label": "Hall name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "location",
+              "label": "Location",
+              "type": "text"
+            },
+            {
+              "key": "capacity",
+              "label": "Capacity",
+              "type": "number"
+            },
+            {
+              "key": "invigilator",
+              "label": "Invigilator",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "markDistribution",
+          "key": "nav.eduMarkDistribution",
+          "path": "mark-distribution",
+          "fields": [
+            {
+              "key": "exam",
+              "label": "Exam",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text"
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "caMarks",
+              "label": "CA marks",
+              "type": "number"
+            },
+            {
+              "key": "examMarks",
+              "label": "Exam marks",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "id": "examSetup",
+          "key": "nav.eduExamSetup",
+          "path": "exam-setup",
+          "fields": [
+            {
+              "key": "examName",
+              "label": "Exam name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "term",
+              "label": "Term",
+              "type": "select",
+              "options": [
+                "Term 1",
+                "Term 2",
+                "Term 3"
+              ]
+            },
+            {
+              "key": "startDate",
+              "label": "Start date",
+              "type": "date"
+            },
+            {
+              "key": "endDate",
+              "label": "End date",
+              "type": "date"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Draft",
+                "Active",
+                "Completed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "examSchedule",
+          "key": "nav.eduExamSchedule",
+          "path": "exam-schedule",
+          "fields": [
+            {
+              "key": "exam",
+              "label": "Exam",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "label": "Exam date",
+              "type": "date"
+            }
+          ]
+        },
+        {
+          "id": "markEntries",
+          "key": "nav.eduMarkEntries",
+          "path": "mark-entries",
+          "fields": [
+            {
+              "key": "exam",
+              "label": "Exam",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text"
+            },
+            {
+              "key": "marks",
+              "label": "Marks",
+              "type": "number"
+            },
+            {
+              "key": "maxMarks",
+              "label": "Max marks",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "id": "gradesRange",
+          "key": "nav.eduGradesRange",
+          "path": "grades-range",
+          "fields": [
+            {
+              "key": "grade",
+              "label": "Grade",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "minScore",
+              "label": "Min score",
+              "type": "number"
+            },
+            {
+              "key": "maxScore",
+              "label": "Max score",
+              "type": "number"
+            },
+            {
+              "key": "remarks",
+              "label": "Remarks",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "examResult",
+          "key": "nav.eduExamResult",
+          "path": "exam-result",
+          "fields": [
+            {
+              "key": "exam",
+              "label": "Exam",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "published",
+              "label": "Result",
+              "type": "select",
+              "options": [
+                "Draft",
+                "Published"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "promotions",
+          "key": "nav.eduPromotions",
+          "path": "promotions",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "fromClass",
+              "label": "From class",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "toClass",
+              "label": "To class",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "academicYear",
+              "label": "Academic year",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Promoted",
+                "Retained"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "examReports",
+          "key": "nav.eduExamReports",
+          "path": "exam-reports",
+          "fields": [
+            {
+              "key": "title",
+              "label": "Report title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "fromDate",
+              "label": "From date",
+              "type": "date"
+            },
+            {
+              "key": "toDate",
+              "label": "To date",
+              "type": "date"
+            },
+            {
+              "key": "type",
+              "label": "Type",
+              "type": "select",
+              "options": [
+                "Results",
+                "Attendance",
+                "Summary"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "library",
+      "key": "nav.eduLibrary",
+      "path": "library",
+      "icon": "library",
+      "leaves": [
+        {
+          "id": "members",
+          "key": "nav.eduLibraryMembers",
+          "path": "members",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "memberType",
+              "label": "Member Type",
+              "type": "select",
+              "options": [
+                "Student",
+                "Staff",
+                "External"
+              ]
+            },
+            {
+              "key": "memberNo",
+              "label": "Member No",
+              "type": "text"
+            },
+            {
+              "key": "contactNumber",
+              "label": "Contact Number",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "email",
+              "label": "Email",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "label": "Address",
+              "type": "text"
+            },
+            {
+              "key": "occupation",
+              "label": "Occupation",
+              "type": "text"
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text",
+              "hideInForm": true
+            }
+          ]
+        },
+        {
+          "id": "requestBooks",
+          "key": "nav.eduRequestBooks",
+          "path": "request-books",
+          "fields": [
+            {
+              "key": "book",
+              "label": "Book",
+              "type": "select",
+              "source": "books",
+              "valueKey": "title",
+              "required": true
+            },
+            {
+              "key": "member",
+              "label": "Member",
+              "type": "select",
+              "source": "members",
+              "valueKey": "name",
+              "required": true
+            },
+            {
+              "key": "requestDate",
+              "label": "Request date",
+              "type": "date"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Pending",
+                "Approved",
+                "Rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bookIssueReturn",
+          "key": "nav.eduBookIssueReturn",
+          "path": "book-issue-return",
+          "fields": [
+            {
+              "key": "book",
+              "label": "Book",
+              "type": "select",
+              "source": "books",
+              "valueKey": "title",
+              "required": true
+            },
+            {
+              "key": "member",
+              "label": "Member",
+              "type": "select",
+              "source": "members",
+              "valueKey": "name",
+              "required": true
+            },
+            {
+              "key": "issueDate",
+              "label": "Issue date",
+              "type": "date"
+            },
+            {
+              "key": "dueDate",
+              "label": "Due date",
+              "type": "date"
+            },
+            {
+              "key": "returnDate",
+              "label": "Return date",
+              "type": "date"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Issued",
+                "Returned",
+                "Overdue"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "books",
+          "key": "nav.eduBooks",
+          "path": "books",
+          "fields": [
+            {
+              "key": "title",
+              "label": "Book Title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "isbn",
+              "label": "Book ISBN No",
+              "type": "text"
+            },
+            {
+              "key": "author",
+              "label": "Author",
+              "type": "text"
+            },
+            {
+              "key": "edition",
+              "label": "Edition",
+              "type": "text"
+            },
+            {
+              "key": "purchaseDate",
+              "label": "Purchase Date",
+              "type": "date",
+              "required": true
+            },
+            {
+              "key": "category",
+              "label": "Book Category",
+              "type": "select",
+              "required": true,
+              "source": "booksCategory",
+              "valueKey": "categoryName"
+            },
+            {
+              "key": "publisher",
+              "label": "Publisher",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            },
+            {
+              "key": "price",
+              "label": "Price",
+              "type": "number",
+              "required": true
+            },
+            {
+              "key": "coverImage",
+              "label": "Cover Image",
+              "type": "image"
+            },
+            {
+              "key": "totalStock",
+              "label": "Total Stock",
+              "type": "number",
+              "required": true
+            }
+          ]
+        },
+        {
+          "id": "booksCategory",
+          "key": "nav.eduBooksCategory",
+          "path": "books-category",
+          "fields": [
+            {
+              "key": "categoryName",
+              "label": "Category name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "transferBooks",
+          "key": "nav.eduTransferBooks",
+          "path": "transfer-books",
+          "fields": [
+            {
+              "key": "book",
+              "label": "Book",
+              "type": "select",
+              "source": "books",
+              "valueKey": "title",
+              "required": true
+            },
+            {
+              "key": "fromBranch",
+              "label": "From branch",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "toBranch",
+              "label": "To branch",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "transferDate",
+              "label": "Transfer date",
+              "type": "date"
+            }
+          ]
+        },
+        {
+          "id": "librarySettings",
+          "key": "nav.eduLibrarySettings",
+          "path": "library-settings",
+          "fields": [
+            {
+              "key": "libraryName",
+              "label": "Library name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "loanPeriodDays",
+              "label": "Loan period (days)",
+              "type": "number"
+            },
+            {
+              "key": "finePerDay",
+              "label": "Fine per day",
+              "type": "number"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Open",
+                "Closed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "libraryReports",
+          "key": "nav.eduLibraryReports",
+          "path": "library-reports",
+          "fields": [
+            {
+              "key": "title",
+              "label": "Report title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "fromDate",
+              "label": "From date",
+              "type": "date"
+            },
+            {
+              "key": "toDate",
+              "label": "To date",
+              "type": "date"
+            },
+            {
+              "key": "type",
+              "label": "Type",
+              "type": "select",
+              "options": [
+                "Stock",
+                "Loans",
+                "Summary"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "onlineExaminations",
+      "key": "nav.eduOnlineExaminations",
+      "path": "online-examinations",
+      "icon": "globe",
+      "leaves": [
+        {
+          "id": "homework",
+          "key": "nav.eduHomework",
+          "path": "homework",
+          "fields": [
+            {
+              "key": "title",
+              "label": "Title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text"
+            },
+            {
+              "key": "dueDate",
+              "label": "Due date",
+              "type": "date"
+            },
+            {
+              "key": "instructions",
+              "label": "Instructions",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "evaluationReport",
+          "key": "nav.eduEvaluationReport",
+          "path": "evaluation-report",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "term",
+              "label": "Term",
+              "type": "select",
+              "options": [
+                "Term 1",
+                "Term 2",
+                "Term 3"
+              ]
+            },
+            {
+              "key": "evaluation",
+              "label": "Evaluation",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "label": "Date",
+              "type": "date"
+            }
+          ]
+        },
+        {
+          "id": "onlineExam",
+          "key": "nav.eduOnlineExam",
+          "path": "online-exam",
+          "fields": [
+            {
+              "key": "title",
+              "label": "Exam title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text"
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "label": "Exam date",
+              "type": "date"
+            },
+            {
+              "key": "duration",
+              "label": "Duration (minutes)",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "id": "questionBank",
+          "key": "nav.eduQuestionBank",
+          "path": "question-bank",
+          "fields": [
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "question",
+              "label": "Question",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "answer",
+              "label": "Correct answer",
+              "type": "text"
+            },
+            {
+              "key": "marks",
+              "label": "Marks",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "id": "questionGroup",
+          "key": "nav.eduQuestionGroup",
+          "path": "question-group",
+          "fields": [
+            {
+              "key": "groupName",
+              "label": "Group name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "text"
+            },
+            {
+              "key": "questionType",
+              "label": "Question type",
+              "type": "select",
+              "options": [
+                "MCQ",
+                "Short Answer",
+                "Essay"
+              ]
+            },
+            {
+              "key": "questionCount",
+              "label": "Questions",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "id": "generatePosition",
+          "key": "nav.eduGeneratePosition",
+          "path": "generate-position",
+          "fields": [
+            {
+              "key": "exam",
+              "label": "Exam",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "term",
+              "label": "Term",
+              "type": "select",
+              "options": [
+                "Term 1",
+                "Term 2",
+                "Term 3"
+              ]
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Draft",
+                "Published"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "onlineExamResult",
+          "key": "nav.eduOnlineExamResult",
+          "path": "exam-result",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "exam",
+              "label": "Exam",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "score",
+              "label": "Score",
+              "type": "number"
+            },
+            {
+              "key": "position",
+              "label": "Position",
+              "type": "number"
+            },
+            {
+              "key": "status",
+              "label": "Result",
+              "type": "select",
+              "options": [
+                "Draft",
+                "Published"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "onlineExamReports",
+          "key": "nav.eduOnlineExamReports",
+          "path": "online-exam-reports",
+          "fields": [
+            {
+              "key": "title",
+              "label": "Report title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "fromDate",
+              "label": "From date",
+              "type": "date"
+            },
+            {
+              "key": "toDate",
+              "label": "To date",
+              "type": "date"
+            },
+            {
+              "key": "type",
+              "label": "Type",
+              "type": "select",
+              "options": [
+                "Results",
+                "Attempts",
+                "Summary"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "studentsSettings",
+      "key": "nav.eduStudentsSettings",
+      "path": "students-settings",
+      "icon": "settings",
+      "leaves": [
+        {
+          "id": "yearGroup",
+          "key": "nav.eduYearGroup",
+          "path": "year-group",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Year group name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "studentStatus",
+          "key": "nav.eduStudentStatus",
+          "path": "student-status",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Status name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "studentHealthStatus",
+          "key": "nav.eduStudentHealthStatus",
+          "path": "student-health-status",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Health status",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "studentCategories",
+          "key": "nav.eduStudentCategories",
+          "path": "student-categories",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Category name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "studentPosition",
+          "key": "nav.eduStudentPosition",
+          "path": "student-position",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Position name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "houses",
+          "key": "nav.eduHouses",
+          "path": "houses",
+          "fields": [
+            {
+              "key": "name",
+              "label": "House name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "color",
+              "label": "House color",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feesConfigurations",
+      "key": "nav.eduFeesConfigurations",
+      "path": "fees-configurations",
+      "icon": "sliders",
+      "leaves": [
+        {
+          "id": "feeGroups",
+          "key": "nav.eduFeeGroups",
+          "path": "fee-groups",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Fee group",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "feeTypes",
+          "key": "nav.eduFeeTypes",
+          "path": "fee-types",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Fee type",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "feeGroup",
+              "label": "Fee group",
+              "type": "text"
+            },
+            {
+              "key": "defaultAmount",
+              "label": "Default amount",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "id": "paymentMethods",
+          "key": "nav.eduPaymentMethods",
+          "path": "payment-methods",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Method name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "provider",
+              "label": "Provider",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Disabled"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lateFeeRules",
+          "key": "nav.eduLateFeeRules",
+          "path": "late-fee-rules",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Rule name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "graceDays",
+              "label": "Grace days",
+              "type": "number"
+            },
+            {
+              "key": "chargePerDay",
+              "label": "Charge per day",
+              "type": "number"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
