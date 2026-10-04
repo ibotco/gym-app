@@ -1,0 +1,3 @@
+Imageshop pictures live here.
+This directory IS the Imageshop "Main Folder"; sub-folders created in the
+app become sub-directories of it. Saved crops are served at /cropped_photo/…
