@@ -1,0 +1,501 @@
+import { useEffect, useMemo, useState } from 'react'
+import {
+  Printer, Mail, CalendarClock, ChevronDown, ChevronRight, X, MousePointerClick, Search,
+} from 'lucide-react'
+import {
+  ResponsiveContainer, LineChart, Line, BarChart, Bar, AreaChart, Area, PieChart, Pie, Cell,
+  XAxis, YAxis, Tooltip, Legend, CartesianGrid,
+} from 'recharts'
+import { PageHeader, Button, Select, Input, Badge, SearchField } from '../../components/ui'
+import { ExportButtons } from '../../components/ExportButtons'
+import { useToast } from '../../context/ToastContext'
+import { SECTIONS, type ReportView, type Row, type Col } from '../../lib/salesReportDefs'
+import {
+  defaultFilters, type SaleFilters, BRANCHES, WAREHOUSES, CUSTOMERS, PRODUCTS, CATEGORIES,
+  BRANDS, SALESPERSONS, PAY_METHODS, type Txn, money2, dmy, filterTxns,
+} from '../../lib/salesAnalytics'
+
+const PIE_COLORS = ['#2563eb', '#059669', '#d97706', '#7c3aed', '#e11d48', '#0284c7', '#65a30d', '#be123c', '#0d9488', '#9333ea']
+const A_COLOR = '#2563eb'
+const B_COLOR = '#059669'
+
+function Chart({ view }: { view: ReportView }) {
+  const c = view.chart
+  if (!c) return null
+  return (
+    <div className="h-72 w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        {c.kind === 'pie' ? (
+          <PieChart>
+            <Pie data={c.data} dataKey="value" nameKey="name" innerRadius="45%" outerRadius="75%" paddingAngle={2}>
+              {c.data.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />)}
+            </Pie>
+            <Tooltip formatter={(v) => Number(v).toLocaleString()} />
+            <Legend />
+          </PieChart>
+        ) : c.kind === 'line' ? (
+          <LineChart data={c.data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="currentColor" opacity={0.12} />
+            <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+            <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => Number(v).toLocaleString()} />
+            <Tooltip formatter={(v) => Number(v).toLocaleString()} />
+            <Legend />
+            <Line type="monotone" dataKey="a" name={c.aLabel} stroke={A_COLOR} strokeWidth={2} dot={false} />
+            {c.bLabel && <Line type="monotone" dataKey="b" name={c.bLabel} stroke={B_COLOR} strokeWidth={2} dot={false} />}
+          </LineChart>
+        ) : c.kind === 'area' ? (
+          <AreaChart data={c.data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="currentColor" opacity={0.12} />
+            <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+            <YAxis tick={{ fontSize: 11 }} />
+            <Tooltip formatter={(v) => Number(v).toLocaleString()} />
+            <Legend />
+            <Area type="monotone" dataKey="a" name={c.aLabel} stroke={A_COLOR} fill={A_COLOR} fillOpacity={0.25} />
+          </AreaChart>
+        ) : (
+          <BarChart data={c.data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="currentColor" opacity={0.12} />
+            <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+            <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => Number(v).toLocaleString()} />
+            <Tooltip formatter={(v) => Number(v).toLocaleString()} />
+            <Legend />
+            <Bar dataKey="a" name={c.aLabel} fill={A_COLOR} radius={[3, 3, 0, 0]} />
+            {c.bLabel && <Bar dataKey="b" name={c.bLabel} fill={B_COLOR} radius={[3, 3, 0, 0]} />}
+          </BarChart>
+        )}
+      </ResponsiveContainer>
+    </div>
+  )
+}
+
+function DataTable({ cols, rows, onDrill, compact }: { cols: Col[]; rows: Row[]; onDrill?: (r: Row) => void; compact?: boolean }) {
+  if (!rows.length) return <p className="py-10 text-center text-sm text-mist">No data for the selected filters.</p>
+  return (
+    <div className="max-h-[560px] overflow-auto">
+      <table className="w-full min-w-[720px] text-left text-sm">
+        <thead className="sticky top-0 z-10">
+          <tr className="bg-black/[0.04] text-xs font-bold uppercase tracking-wide text-mist dark:bg-white/[0.06]">
+            {cols.map((c) => <th key={c.key} className={`px-3 py-2.5 ${c.right ? 'text-right' : ''}`}>{c.label}</th>)}
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-line">
+          {rows.map((r, i) => (
+            <tr
+              key={i}
+              onClick={r.__txns && onDrill ? () => onDrill(r) : undefined}
+              className={`transition hover:bg-black/[0.02] dark:hover:bg-white/[0.03] ${r.__txns && onDrill ? 'cursor-pointer' : ''}`}
+            >
+              {cols.map((c) => (
+                <td key={c.key} className={`${compact ? 'px-3 py-1.5' : 'px-3 py-2'} ${c.right ? 'text-right tabular-nums' : ''}`}>
+                  {String(r[c.key] ?? '—')}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export function SalesReports() {
+  const toast = useToast()
+  const [sectionId, setSectionId] = useState(SECTIONS[0].id)
+  const [reportId, setReportId] = useState(SECTIONS[0].reports[0].id)
+  const [open, setOpen] = useState<string[]>([SECTIONS[0].id])
+  const [navQ, setNavQ] = useState('')
+  const [f, setF] = useState<SaleFilters>(() => defaultFilters())
+  const [drill, setDrill] = useState<{ title: string; txns: Txn[] } | null>(null)
+  const [emailOpen, setEmailOpen] = useState(false)
+  const [emailTo, setEmailTo] = useState('')
+  const [schedOpen, setSchedOpen] = useState(false)
+  const [schedFreq, setSchedFreq] = useState('weekly')
+  const [schedTo, setSchedTo] = useState('')
+
+  const section = SECTIONS.find((s) => s.id === sectionId) ?? SECTIONS[0]
+  const report = section.reports.find((r) => r.id === reportId) ?? section.reports[0]
+
+  // Report Navigator search — filters the section/report list by title, the same
+  // way the Report Viewer (Accounting → Report Viewer) filters its report list.
+  const navQuery = navQ.trim().toLowerCase()
+  const filteredSections = useMemo(() => {
+    const groups = SECTIONS.map((s, i) => ({ section: s, num: i + 1, reports: s.reports }))
+    if (!navQuery) return groups
+    return groups
+      .map((g) => ({
+        ...g,
+        reports: g.section.title.toLowerCase().includes(navQuery)
+          ? g.section.reports
+          : g.section.reports.filter((r) => r.title.toLowerCase().includes(navQuery)),
+      }))
+      .filter((g) => g.reports.length > 0)
+  }, [navQuery])
+
+  const view = useMemo(() => report.build(f), [report, f])
+
+  /** Tax summary by type across the filtered transactions (both tax modes). */
+  const taxByType = useMemo(() => {
+    const map = new Map<string, number>()
+    let total = 0
+    for (const t of filterTxns(f)) {
+      if (t.voided) continue
+      for (const tax of t.taxes) {
+        map.set(tax.name, (map.get(tax.name) || 0) + tax.amount)
+        total += tax.amount
+      }
+    }
+    const rows = [...map.entries()]
+      .map(([name, amount]) => ({ name, amount: Math.round(amount * 100) / 100 }))
+      .sort((a, b) => b.amount - a.amount)
+    return { rows, total: Math.round(total * 100) / 100 }
+  }, [f])
+
+  useEffect(() => { document.title = `${report.title} — FitPro` }, [report])
+
+  const pickReport = (sid: string, rid: string) => {
+    setSectionId(sid); setReportId(rid)
+    setOpen((o) => (o.includes(sid) ? o : [...o, sid]))
+  }
+
+  const exportRows = useMemo(() => view.rows.map((r) => {
+    const out: Record<string, string | number> = {}
+    for (const c of view.cols) out[c.label] = (r[c.key] as string | number) ?? ''
+    return out
+  }), [view])
+
+  const drillCols: Col[] = [
+    { key: 'id', label: 'Ref' }, { key: 'date', label: 'Date' }, { key: 'branch', label: 'Branch' },
+    { key: 'customer', label: 'Customer' }, { key: 'salesperson', label: 'Salesperson' }, { key: 'method', label: 'Method' },
+    { key: 'net', label: 'Net', right: true },
+  ]
+
+  return (
+    <div>
+      <PageHeader
+        eyebrow="Sales"
+        title="Sales Reports"
+        desc="Enterprise sales analytics: executive KPIs, performance, POS, products, customers, receivables, shipments, returns, discounts and profitability."
+        actions={<div className="flex flex-wrap items-center gap-1.5">
+          <ExportButtons filename={view.exportName} rows={exportRows} onDone={(l, ok) => toast[ok ? 'success' : 'error'](`${l} export ${ok ? 'ready' : 'failed'}`, view.title)} />
+          <Button onClick={() => window.print()}><Printer className="size-4" /> Print</Button>
+          <Button onClick={() => setEmailOpen(true)}><Mail className="size-4" /> Email</Button>
+          <Button onClick={() => setSchedOpen(true)}><CalendarClock className="size-4" /> Schedule</Button>
+        </div>}
+      />
+
+      <div className="flex flex-col gap-4 lg:flex-row">
+        {/* ---- Report navigator ---- */}
+        <aside className="card w-full flex-shrink-0 self-start overflow-hidden lg:w-72">
+          <div className="border-b border-line p-3">
+            <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-mist"><Search className="size-3.5" /> Report Navigator</p>
+          </div>
+          <div className="border-b border-line p-3">
+            <SearchField value={navQ} onChange={setNavQ} placeholder="Search reports…" />
+          </div>
+          <nav className="max-h-[70vh] overflow-y-auto p-2">
+            {filteredSections.map(({ section: s, num: i, reports }) => {
+              const isOpen = navQuery ? true : open.includes(s.id)
+              return (
+                <div key={s.id} className="mb-1">
+                  <button
+                    type="button"
+                    onClick={() => { setOpen((o) => (isOpen ? o.filter((x) => x !== s.id) : [...o, s.id])); setSectionId(s.id); setReportId(reports[0].id) }}
+                    className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-semibold transition ${sectionId === s.id ? 'bg-blue-500/10 text-blue-600 dark:text-blue-300' : 'hover:bg-black/[0.04] dark:hover:bg-white/[0.06]'}`}
+                  >
+                    {isOpen ? <ChevronDown className="size-3.5 flex-shrink-0" /> : <ChevronRight className="size-3.5 flex-shrink-0" />}
+                    <span className="min-w-0 flex-1 truncate">{i}. {s.title}</span>
+                    <span className="rounded-full bg-black/[0.06] px-1.5 text-[10px] font-bold text-mist dark:bg-white/10">{reports.length}</span>
+                  </button>
+                  {isOpen && (
+                    <div className="ml-4 border-l border-line pl-2">
+                      {reports.map((r) => (
+                        <button
+                          key={r.id}
+                          type="button"
+                          onClick={() => pickReport(s.id, r.id)}
+                          className={`block w-full cursor-pointer truncate rounded-md px-2.5 py-1.5 text-left text-[13px] transition ${reportId === r.id ? 'bg-blue-500/15 font-semibold text-blue-600 dark:text-blue-300' : 'text-mist hover:bg-black/[0.04] hover:text-inherit dark:hover:bg-white/[0.06]'}`}
+                        >
+                          {r.title}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+            {filteredSections.length === 0 && (
+              <div className="px-3 py-6 text-center text-sm text-mist">No reports match “{navQ}”.</div>
+            )}
+          </nav>
+        </aside>
+
+        {/* ---- Report area ---- */}
+        <div className="min-w-0 flex-1 space-y-4">
+          {/* Filters */}
+          <div className="card p-4">
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
+              <div>
+                <label className="mb-1 block text-xs font-bold">Date range</label>
+                <Select value={f.preset} onChange={(e) => setF({ ...f, preset: e.target.value as SaleFilters['preset'] })}>
+                  <option value="today">Today</option>
+                  <option value="yesterday">Yesterday</option>
+                  <option value="week">This Week</option>
+                  <option value="month">This Month</option>
+                  <option value="quarter">This Quarter</option>
+                  <option value="year">This Year</option>
+                  <option value="all">All time</option>
+                  <option value="custom">Custom…</option>
+                </Select>
+              </div>
+              {f.preset === 'custom' && (<>
+                <div>
+                  <label className="mb-1 block text-xs font-bold">From</label>
+                  <Input type="date" value={f.start} onChange={(e) => setF({ ...f, start: e.target.value })} />
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-bold">To</label>
+                  <Input type="date" value={f.end} onChange={(e) => setF({ ...f, end: e.target.value })} />
+                </div>
+              </>)}
+              <div>
+                <label className="mb-1 block text-xs font-bold">Branch</label>
+                <Select value={f.branch} onChange={(e) => setF({ ...f, branch: e.target.value })}>
+                  <option value="">All branches</option>
+                  {BRANCHES.map((b) => <option key={b} value={b}>{b}</option>)}
+                </Select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-bold">Warehouse</label>
+                <Select value={f.warehouse} onChange={(e) => setF({ ...f, warehouse: e.target.value })}>
+                  <option value="">All warehouses</option>
+                  {WAREHOUSES.map((b) => <option key={b} value={b}>{b}</option>)}
+                </Select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-bold">Customer</label>
+                <Select value={f.customer} onChange={(e) => setF({ ...f, customer: e.target.value })}>
+                  <option value="">All customers</option>
+                  {CUSTOMERS.map((b) => <option key={b} value={b}>{b}</option>)}
+                </Select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-bold">Product</label>
+                <Select value={f.product} onChange={(e) => setF({ ...f, product: e.target.value })}>
+                  <option value="">All products</option>
+                  {PRODUCTS.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
+                </Select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-bold">Category</label>
+                <Select value={f.category} onChange={(e) => setF({ ...f, category: e.target.value })}>
+                  <option value="">All categories</option>
+                  {CATEGORIES.map((b) => <option key={b} value={b}>{b}</option>)}
+                </Select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-bold">Brand</label>
+                <Select value={f.brand} onChange={(e) => setF({ ...f, brand: e.target.value })}>
+                  <option value="">All brands</option>
+                  {BRANDS.map((b) => <option key={b} value={b}>{b}</option>)}
+                </Select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-bold">Salesperson</label>
+                <Select value={f.salesperson} onChange={(e) => setF({ ...f, salesperson: e.target.value })}>
+                  <option value="">All salespersons</option>
+                  {SALESPERSONS.map((b) => <option key={b} value={b}>{b}</option>)}
+                </Select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-bold">Payment method</label>
+                <Select value={f.method} onChange={(e) => setF({ ...f, method: e.target.value })}>
+                  <option value="">All methods</option>
+                  {PAY_METHODS.map((b) => <option key={b} value={b}>{b}</option>)}
+                </Select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-bold">Invoice status</label>
+                <Select value={f.invoiceStatus} onChange={(e) => setF({ ...f, invoiceStatus: e.target.value })}>
+                  <option value="">Any</option>
+                  {['paid', 'unpaid', 'overdue', 'partial'].map((b) => <option key={b} value={b}>{b}</option>)}
+                </Select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-bold">Order status</label>
+                <Select value={f.orderStatus} onChange={(e) => setF({ ...f, orderStatus: e.target.value })}>
+                  <option value="">Any</option>
+                  {['open', 'closed', 'pending', 'partial', 'backorder'].map((b) => <option key={b} value={b}>{b}</option>)}
+                </Select>
+              </div>
+            </div>
+            <div className="mt-3 flex items-center justify-between gap-3 border-t border-line pt-3">
+              <p className="min-w-0 truncate text-xs text-mist">{view.filtersLine}</p>
+              <Button size="sm" variant="ghost" onClick={() => setF(defaultFilters())}>Reset filters</Button>
+            </div>
+          </div>
+
+          {/* KPI cards */}
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4">
+            {view.metrics.map((m) => (
+              <div key={m.label} className="card p-4">
+                <p className="text-[11px] font-bold uppercase tracking-wide text-mist">{m.label}</p>
+                <p className="mt-1 truncate text-xl font-bold" style={{ color: m.color }}>{m.value}</p>
+                {m.sub && <p className="mt-0.5 text-xs text-mist">{m.sub}</p>}
+              </div>
+            ))}
+          </div>
+
+          {/* Tax summary by type */}
+          {taxByType.rows.length > 0 && (
+            <div className="card p-4">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-sm font-bold">Tax summary by type</p>
+                <Badge tone="lime">Total tax {money2(taxByType.total)}</Badge>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+                {taxByType.rows.map((row) => (
+                  <div key={row.name} className="rounded-xl border border-line p-3">
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-mist">{row.name}</p>
+                    <p className="mt-0.5 text-base font-bold tabular-nums">{money2(row.amount)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Chart */}
+          {view.chart && (
+            <div className="card p-4">
+              <p className="mb-2 text-sm font-bold">{view.chartTitle}</p>
+              <Chart view={view} />
+            </div>
+          )}
+
+          {/* Table */}
+          {view.cols.length > 0 && (
+            <div className="card overflow-hidden">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line p-4">
+                <div>
+                  <p className="text-sm font-bold">{view.title}</p>
+                  <p className="text-xs text-mist">{view.desc} · click a row to drill down</p>
+                </div>
+                <Badge tone="sky">{view.rows.length} rows</Badge>
+              </div>
+              <DataTable cols={view.cols} rows={view.rows} onDrill={(r) => setDrill({ title: `${view.title} — ${String(r[view.cols[0].key] ?? '')}`, txns: (r.__txns as Txn[] | undefined) ?? [] })} />
+            </div>
+          )}
+
+          {/* Extra tables (executive dashboard top lists) */}
+          {view.extra?.map((x) => (
+            <div key={x.label} className="card overflow-hidden">
+              <p className="border-b border-line p-4 text-sm font-bold">{x.label}</p>
+              <DataTable cols={x.cols} rows={x.rows} compact />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ---- Drill-down ---- */}
+      {drill && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center sm:p-4" onClick={() => setDrill(null)}>
+          <div className="card max-h-[92vh] w-full overflow-y-auto rounded-t-2xl p-4 sm:max-w-3xl sm:rounded-xl sm:p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-start justify-between border-b border-line pb-4">
+              <div>
+                <h2 className="flex items-center gap-2 text-base font-bold"><MousePointerClick className="size-4" /> Drill-down</h2>
+                <p className="mt-1 text-sm text-mist">{drill.title} · {drill.txns.length} underlying transactions</p>
+              </div>
+              <button type="button" aria-label="Close" onClick={() => setDrill(null)} className="-mr-1 cursor-pointer rounded-md p-1.5 transition hover:bg-black/[0.05] dark:hover:bg-white/10"><X className="h-5 w-5" /></button>
+            </div>
+            <div className="mt-4">
+              <DataTable cols={drillCols} rows={drill.txns.map((t) => ({ id: t.id, date: dmy(t.date), branch: t.branch, customer: t.customer, salesperson: t.salesperson, method: t.method, net: money2(t.voided ? 0 : t.net) }))} compact />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ---- Email report ---- */}
+      {emailOpen && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center sm:p-4" onClick={() => setEmailOpen(false)}>
+          <div className="card w-full rounded-t-2xl p-4 sm:max-w-md sm:rounded-xl sm:p-6" onClick={(e) => e.stopPropagation()}>
+            <h2 className="flex items-center gap-2 text-base font-bold"><Mail className="size-4" /> Email Report</h2>
+            <p className="mt-1 text-sm text-mist">Send “{view.title}” with current filters as PDF & Excel attachments.</p>
+            <div className="mt-4">
+              <label className="mb-1 block text-xs font-bold">Recipient email</label>
+              <Input type="email" value={emailTo} onChange={(e) => setEmailTo(e.target.value)} placeholder="e.g. ceo@fitpro.app" />
+            </div>
+            <div className="mt-5 flex justify-end gap-2">
+              <Button onClick={() => setEmailOpen(false)}>Cancel</Button>
+              <Button className="bg-blue-600 text-white hover:bg-blue-700" onClick={() => {
+                if (!emailTo.includes('@')) { toast.error('Enter a valid email address.'); return }
+                setEmailOpen(false); toast.success('Report emailed', `“${view.title}” sent to ${emailTo}.`)
+              }}><Mail className="size-4" /> Send now</Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ---- Schedule delivery ---- */}
+      {schedOpen && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center sm:p-4" onClick={() => setSchedOpen(false)}>
+          <div className="card w-full rounded-t-2xl p-4 sm:max-w-md sm:rounded-xl sm:p-6" onClick={(e) => e.stopPropagation()}>
+            <h2 className="flex items-center gap-2 text-base font-bold"><CalendarClock className="size-4" /> Schedule Report Delivery</h2>
+            <p className="mt-1 text-sm text-mist">Automatically deliver “{view.title}” to a mailbox.</p>
+            <div className="mt-4 grid gap-4">
+              <div>
+                <label className="mb-1 block text-xs font-bold">Frequency</label>
+                <Select value={schedFreq} onChange={(e) => setSchedFreq(e.target.value)}>
+                  <option value="daily">Daily at 7:00 AM</option>
+                  <option value="weekly">Weekly (Mondays)</option>
+                  <option value="monthly">Monthly (1st)</option>
+                </Select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-bold">Recipient email</label>
+                <Input type="email" value={schedTo} onChange={(e) => setSchedTo(e.target.value)} placeholder="e.g. board@fitpro.app" />
+              </div>
+            </div>
+            <div className="mt-5 flex justify-end gap-2">
+              <Button onClick={() => setSchedOpen(false)}>Cancel</Button>
+              <Button className="bg-blue-600 text-white hover:bg-blue-700" onClick={() => {
+                if (!schedTo.includes('@')) { toast.error('Enter a valid email address.'); return }
+                setSchedOpen(false); toast.success('Delivery scheduled', `“${view.title}” will be sent ${schedFreq} to ${schedTo}.`)
+              }}><CalendarClock className="size-4" /> Schedule</Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ---- Print sheet ---- */}
+      <style>{`
+        .sr-print { display: none; }
+        @media print {
+          body * { visibility: hidden; }
+          .sr-print, .sr-print * { visibility: visible; }
+          .sr-print { display: block; position: absolute; inset: 0; padding: 24px; background: white; color: #111; }
+          .sr-print table { width: 100%; border-collapse: collapse; font-size: 10px; }
+          .sr-print th, .sr-print td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; }
+          .sr-print th { background: #f3f4f6; text-transform: uppercase; }
+        }
+      `}</style>
+      <section className="sr-print">
+        <h1 style={{ fontSize: 20, fontWeight: 800 }}>FitPro Gym Management — {view.title}</h1>
+        <p style={{ fontSize: 11, margin: '4px 0 12px' }}>{view.filtersLine} · Generated {dmy(new Date().toISOString().slice(0, 10))}</p>
+        <table>
+          <thead><tr>{view.metrics.map((m) => <th key={m.label}>{m.label}</th>)}</tr></thead>
+          <tbody><tr>{view.metrics.map((m) => <td key={m.label}><strong>{m.value}</strong>{m.sub ? ` (${m.sub})` : ''}</td>)}</tr></tbody>
+        </table>
+        {view.cols.length > 0 && (
+          <table style={{ marginTop: 12 }}>
+            <thead><tr>{view.cols.map((c) => <th key={c.key} style={{ textAlign: c.right ? 'right' : 'left' }}>{c.label}</th>)}</tr></thead>
+            <tbody>
+              {view.rows.slice(0, 200).map((r, i) => (
+                <tr key={i}>{view.cols.map((c) => <td key={c.key} style={{ textAlign: c.right ? 'right' : 'left' }}>{String(r[c.key] ?? '—')}</td>)}</tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        <p style={{ fontSize: 10, marginTop: 12 }}>Igracesoft GH · FitPro ERP — confidential. Page generated by Sales Reports module.</p>
+      </section>
+    </div>
+  )
+}
