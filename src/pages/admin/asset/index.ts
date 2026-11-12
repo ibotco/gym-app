@@ -1,0 +1,12 @@
+// asset — barrel (auto-generated for maintainability)
+export * from './AssetAssignments'
+export * from './AssetAudit'
+export * from './AssetCategorySettings'
+export * from './AssetConditionSettings'
+export * from './AssetDepreciation'
+export * from './AssetLocations'
+export * from './AssetMaintenance'
+export * from './AssetReports'
+export * from './AssetTransactions'
+export * from './Assets'
+export * from './DepreciationPolicy'
