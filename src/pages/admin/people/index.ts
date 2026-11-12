@@ -1,0 +1,10 @@
+// people — barrel (auto-generated for maintainability)
+export * from './CategorySettings'
+export * from './CustomerCategories'
+export * from './Customers'
+export * from './Imageshop'
+export * from './Leads'
+export * from './MemberDetail'
+export * from './Members'
+export * from './SupplierCategories'
+export * from './Suppliers'

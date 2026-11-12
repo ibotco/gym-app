@@ -1,0 +1,13 @@
+// procurement — barrel (auto-generated for maintainability)
+export * from './GoodsReceipts'
+export * from './ProcPurchaseOrders'
+export * from './ProcPurchaseReturns'
+export * from './ProcurementReports'
+export * from './PurchaseOrders'
+export * from './PurchaseReports'
+export * from './PurchaseRequisitions'
+export * from './PurchaseReturns'
+export * from './Purchases'
+export * from './SupplierInvoices'
+export * from './SupplierPayments'
+export * from './common'
