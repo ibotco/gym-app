@@ -1,0 +1,10 @@
+// settings — barrel (auto-generated for maintainability)
+export * from './BranchSettings'
+export * from './CustomFieldsSettings'
+export * from './DataMaintenance'
+export * from './Integrations'
+export * from './ModuleManagement'
+export * from './PaymentSettingsForm'
+export * from './PrintHeaderSettings'
+export * from './Settings'
+export * from './SystemSettings'
