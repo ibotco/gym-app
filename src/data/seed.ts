@@ -118,6 +118,7 @@ export const USERS: User[] = [
   { id: 'u_staff', email: 'staff@fitpro.gym', password: 'demo123', name: 'Abena Sarpong', role: 'staff', avatar: '/images/member-ava-3.jpg', phone: '+233 24 111 0007', branchId: 'br_airport', status: 'active', createdAt: '2023-07-18' },
   { id: 'u_staff2', email: 'front@fitpro.gym', password: 'demo123', name: 'Yaw Boateng', role: 'staff', avatar: '/images/member-ava-6.jpg', phone: '+233 24 111 0008', branchId: 'br_osu', status: 'active', createdAt: '2024-01-09' },
   { id: 'u_member', companyId: 'co_fitpro', email: 'member@fitpro.gym', password: 'demo123', name: 'Ama Boateng', role: 'member', avatar: '/images/success-1.jpg', phone: '+233 24 555 0101', branchId: 'br_airport', status: 'active', createdAt: '2024-03-11' },
+  { id: 'u_student_demo', companyId: 'co_fitpro', email: 'student@fitpro.gym', password: 'demo123', name: 'Demo Student', role: 'student', avatar: '/images/member-ava-1.jpg', phone: '', branchId: 'br_airport', status: 'active', createdAt: '2024-03-11' },
   { id: 'u_m2', companyId: 'co_fitpro', email: 'kofi.asante@mail.com', password: 'demo123', name: 'Kofi Asante', role: 'member', avatar: '/images/success-2.jpg', phone: '+233 24 555 0102', branchId: 'br_airport', status: 'active', createdAt: '2024-01-20' },
   { id: 'u_m3', companyId: 'co_fitpro', email: 'efua.adjei@mail.com', password: 'demo123', name: 'Efua Adjei', role: 'member', avatar: '/images/success-3.jpg', phone: '+233 24 555 0103', branchId: 'br_osu', status: 'active', createdAt: '2024-05-02' },
   { id: 'u_m4', companyId: 'co_fitpro', email: 'nii.armah@mail.com', password: 'demo123', name: 'Nii Armah', role: 'member', avatar: '/images/member-ava-4.jpg', phone: '+233 24 555 0104', branchId: 'br_legon', status: 'active', createdAt: '2023-11-15' },
@@ -513,4 +514,5 @@ export const DEMO_ACCOUNTS = [
   { role: 'Trainer', email: 'trainer@fitpro.gym', password: 'demo123', hint: 'Kojo Mensah — coaching portal' },
   { role: 'Staff', email: 'staff@fitpro.gym', password: 'demo123', hint: 'Front desk & check-in' },
   { role: 'Member', email: 'member@fitpro.gym', password: 'demo123', hint: 'Ama Boateng — member app' },
+  { role: 'Student', email: 'student@fitpro.gym', password: 'demo123', hint: 'Demo Student — fictional preview' },
 ]

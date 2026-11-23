@@ -13,9 +13,70 @@
           "fields": [
             {
               "key": "name",
-              "label": "Enquirer name",
+              "label": "Name",
               "type": "text",
               "required": true
+            },
+            {
+              "key": "phone",
+              "label": "Phone",
+              "type": "tel",
+              "required": true
+            },
+            {
+              "key": "email",
+              "label": "Email",
+              "type": "email",
+              "hideInTable": true
+            },
+            {
+              "key": "address",
+              "label": "Address",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "note",
+              "label": "Note",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "date",
+              "label": "Date",
+              "type": "date",
+              "required": true
+            },
+            {
+              "key": "nextFollowUpDate",
+              "label": "Next Follow Up Date",
+              "type": "date",
+              "required": true
+            },
+            {
+              "key": "assigned",
+              "label": "Assigned",
+              "type": "select",
+              "source": "enquiryStaff",
+              "hideInTable": true
+            },
+            {
+              "key": "reference",
+              "label": "Reference",
+              "type": "select",
+              "options": [
+                "Parent",
+                "Student",
+                "Staff",
+                "Other"
+              ],
+              "hideInTable": true
             },
             {
               "key": "source",
@@ -26,17 +87,22 @@
                 "Phone",
                 "Website",
                 "Referral"
-              ]
+              ],
+              "required": true
             },
             {
-              "key": "phone",
-              "label": "Phone",
-              "type": "text"
+              "key": "className",
+              "label": "Class",
+              "type": "select",
+              "source": "classList",
+              "valueKey": "name",
+              "hideInTable": true
             },
             {
-              "key": "date",
-              "label": "Enquiry date",
-              "type": "date"
+              "key": "numberOfChild",
+              "label": "Number Of Child",
+              "type": "number",
+              "hideInTable": true
             },
             {
               "key": "status",
@@ -56,30 +122,95 @@
           "path": "visitors",
           "fields": [
             {
+              "key": "purpose",
+              "label": "Purpose",
+              "type": "select",
+              "source": "visitingPurposes",
+              "required": true
+            },
+            {
+              "key": "meetingType",
+              "label": "Meeting With",
+              "type": "select",
+              "options": [
+                "Student",
+                "Staff"
+              ],
+              "required": true
+            },
+            {
+              "key": "visitorClass",
+              "label": "Class",
+              "type": "select",
+              "source": "visitorClass",
+              "hideInTable": true
+            },
+            {
+              "key": "visitorSection",
+              "label": "Section",
+              "type": "select",
+              "source": "visitorSection",
+              "hideInTable": true
+            },
+            {
+              "key": "meetWith",
+              "label": "Person",
+              "type": "select",
+              "source": "visitorMeetingPerson",
+              "required": true
+            },
+            {
               "key": "name",
-              "label": "Visitor name",
+              "label": "Visitor Name",
               "type": "text",
               "required": true
             },
             {
-              "key": "purpose",
-              "label": "Purpose",
-              "type": "text"
-            },
-            {
-              "key": "meetWith",
-              "label": "Person to meet",
-              "type": "text"
-            },
-            {
-              "key": "date",
-              "label": "Visit date",
-              "type": "date"
+              "key": "phone",
+              "label": "Phone",
+              "type": "tel",
+              "hideInTable": true
             },
             {
               "key": "badgeNo",
-              "label": "Badge No",
+              "label": "ID Card",
               "type": "text"
+            },
+            {
+              "key": "numberOfPerson",
+              "label": "Number Of Person",
+              "type": "number",
+              "hideInTable": true
+            },
+            {
+              "key": "date",
+              "label": "Date",
+              "type": "date",
+              "required": true
+            },
+            {
+              "key": "inTime",
+              "label": "In Time",
+              "type": "time",
+              "hideInTable": true
+            },
+            {
+              "key": "outTime",
+              "label": "Out Time",
+              "type": "time",
+              "hideInTable": true
+            },
+            {
+              "key": "attachment",
+              "label": "Attach Document",
+              "type": "visitorDocument",
+              "hideInTable": true
+            },
+            {
+              "key": "note",
+              "label": "Note",
+              "type": "textarea",
+              "hideInTable": true
             }
           ]
         },
@@ -90,24 +221,68 @@
           "fields": [
             {
               "key": "caller",
-              "label": "Caller",
-              "type": "text",
-              "required": true
+              "label": "Name",
+              "type": "text"
             },
             {
               "key": "phone",
               "label": "Phone",
-              "type": "text"
+              "type": "tel",
+              "required": true
             },
             {
               "key": "date",
-              "label": "Call date",
-              "type": "date"
+              "label": "Date",
+              "type": "date",
+              "required": true
             },
             {
               "key": "message",
-              "label": "Message",
-              "type": "text"
+              "label": "Description",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "nextFollowUpDate",
+              "label": "Next Follow Up Date",
+              "type": "date",
+              "hideInTable": true
+            },
+            {
+              "key": "callDuration",
+              "label": "Call Duration",
+              "type": "text",
+              "hideInTable": true
+            },
+            {
+              "key": "note",
+              "label": "Note",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "callType",
+              "label": "Call Type",
+              "type": "radio",
+              "options": [
+                "Incoming",
+                "Outgoing"
+              ],
+              "required": true
+            },
+            {
+              "key": "callingPurpose",
+              "label": "Calling Purpose",
+              "type": "select",
+              "source": "callingPurposes",
+              "hideInTable": true
+            },
+            {
+              "key": "response",
+              "label": "Response",
+              "type": "select",
+              "source": "frontOfficeResponses",
+              "hideInTable": true
             },
             {
               "key": "status",
@@ -118,6 +293,232 @@
                 "Returned",
                 "Resolved"
               ]
+            }
+          ]
+        },
+        {
+          "id": "postalDispatch",
+          "key": "nav.eduPostalDispatch",
+          "path": "postal-dispatch",
+          "fields": [
+            {
+              "key": "toTitle",
+              "label": "To Title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "reference",
+              "label": "Reference No",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "label": "Address",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "note",
+              "label": "Note",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "fromTitle",
+              "label": "From Title",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "label": "Date",
+              "type": "date"
+            },
+            {
+              "key": "attachment",
+              "label": "Attach Document",
+              "type": "visitorDocument",
+              "hideInTable": true
+            },
+            {
+              "key": "details",
+              "label": "Details",
+              "type": "text",
+              "hideInTable": true
+            },
+            {
+              "key": "handledBy",
+              "label": "Handled by",
+              "type": "text",
+              "hideInTable": true
+            }
+          ]
+        },
+        {
+          "id": "postalReceive",
+          "key": "nav.eduPostalReceive",
+          "path": "postal-receive",
+          "fields": [
+            {
+              "key": "fromTitle",
+              "label": "From Title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "reference",
+              "label": "Reference No",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "label": "Address",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "note",
+              "label": "Note",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "toTitle",
+              "label": "To Title",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "label": "Date",
+              "type": "date"
+            },
+            {
+              "key": "attachment",
+              "label": "Attach Document",
+              "type": "visitorDocument",
+              "hideInTable": true
+            },
+            {
+              "key": "details",
+              "label": "Details",
+              "type": "text",
+              "hideInTable": true
+            },
+            {
+              "key": "handledBy",
+              "label": "Handled by",
+              "type": "text",
+              "hideInTable": true
+            }
+          ]
+        },
+        {
+          "id": "complain",
+          "key": "nav.eduComplain",
+          "path": "complain",
+          "fields": [
+            {
+              "key": "type",
+              "label": "Complaint Type",
+              "type": "select",
+              "source": "complaintTypes"
+            },
+            {
+              "key": "source",
+              "label": "Source",
+              "type": "select",
+              "options": [
+                "Walk-in",
+                "Phone",
+                "Website",
+                "Referral"
+              ]
+            },
+            {
+              "key": "name",
+              "label": "Complain By",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "phone",
+              "label": "Phone",
+              "type": "tel"
+            },
+            {
+              "key": "date",
+              "label": "Date",
+              "type": "date"
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "actionTaken",
+              "label": "Action Taken",
+              "type": "text",
+              "hideInTable": true
+            },
+            {
+              "key": "assigned",
+              "label": "Assigned",
+              "type": "text",
+              "hideInTable": true
+            },
+            {
+              "key": "note",
+              "label": "Note",
+              "type": "textarea",
+              "hideInTable": true
+            },
+            {
+              "key": "attachment",
+              "label": "Attach Document",
+              "type": "visitorDocument",
+              "hideInTable": true
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Pending",
+                "In Progress",
+                "Resolved",
+                "Closed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "frontOfficeSetup",
+          "key": "nav.eduSetupFrontOffice",
+          "path": "setup-front-office",
+          "fields": [
+            {
+              "key": "category",
+              "label": "Category",
+              "type": "select",
+              "options": [
+                "Source",
+                "Reference",
+                "Complaint Type"
+              ],
+              "required": true
+            },
+            {
+              "key": "name",
+              "label": "Name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "textarea"
             }
           ]
         },
@@ -155,7 +556,8 @@
               "label": "Handled by",
               "type": "text"
             }
-          ]
+          ],
+          "hidden": true
         }
       ]
     },
@@ -407,6 +809,11 @@
               "type": "select",
               "source": "classrooms",
               "valueKey": "name"
+            },
+            {
+              "key": "creditHours",
+              "label": "Credit Hours",
+              "type": "number"
             }
           ]
         },
@@ -747,6 +1154,19 @@
       "icon": "users",
       "leaves": [
         {
+          "id": "studentAdmission",
+          "key": "nav.eduStudentAdmission",
+          "path": "student-admission",
+          "hidden": true,
+          "fields": []
+        },
+        {
+          "id": "onlineAdmissionSettings",
+          "key": "nav.eduOnlineAdmissionSettings",
+          "path": "online-admission",
+          "fields": []
+        },
+        {
           "id": "studentList",
           "key": "nav.eduStudentList",
           "path": "student-list",
@@ -765,12 +1185,50 @@
             {
               "key": "className",
               "label": "Class",
-              "type": "text"
+              "type": "select",
+              "source": "classList",
+              "valueKey": "name"
             },
             {
               "key": "rollNo",
               "label": "Roll No",
               "type": "text"
+            },
+            {
+              "key": "section",
+              "label": "Section / Stream",
+              "type": "select",
+              "source": "academicSections",
+              "valueKey": "name"
+            },
+            {
+              "key": "category",
+              "label": "Student category",
+              "type": "select",
+              "source": "studentCategories",
+              "valueKey": "name",
+              "hideInTable": true
+            },
+            {
+              "key": "house",
+              "label": "House",
+              "type": "select",
+              "source": "houses",
+              "valueKey": "name"
+            },
+            {
+              "key": "dateOfBirth",
+              "label": "Date of birth",
+              "type": "date"
+            },
+            {
+              "key": "gender",
+              "label": "Gender",
+              "type": "select",
+              "options": [
+                "Male",
+                "Female"
+              ]
             },
             {
               "key": "guardian",
@@ -781,6 +1239,28 @@
               "key": "phone",
               "label": "Phone",
               "type": "text"
+            },
+            {
+              "key": "admissionDate",
+              "label": "Admission date",
+              "type": "date"
+            },
+            {
+              "key": "previousSchoolName",
+              "label": "Previous school name",
+              "type": "text",
+              "hideInTable": true
+            },
+            {
+              "key": "previousQualification",
+              "label": "Previous qualification",
+              "type": "text",
+              "hideInTable": true
+            },
+            {
+              "key": "photo",
+              "label": "Student photo",
+              "type": "image"
             },
             {
               "key": "status",
@@ -797,6 +1277,7 @@
           "id": "studentRegistration",
           "key": "nav.eduStudentRegistration",
           "path": "student-registration",
+          "hidden": true,
           "fields": [
             {
               "key": "admissionNo",
@@ -885,7 +1366,7 @@
           "fields": [
             {
               "key": "name",
-              "label": "Parent name",
+              "label": "Parent / guardian name",
               "type": "text",
               "required": true
             },
@@ -894,22 +1375,26 @@
               "label": "Student",
               "type": "select",
               "source": "studentList",
-              "valueKey": "name"
+              "valueKey": "name",
+              "required": true
+            },
+            {
+              "key": "studentId",
+              "label": "Student ID",
+              "type": "text",
+              "hideInForm": true,
+              "hideInTable": true
             },
             {
               "key": "relation",
-              "label": "Relation",
+              "label": "Relationship",
               "type": "select",
               "options": [
                 "Mother",
                 "Father",
-                "Guardian"
+                "Guardian",
+                "Other"
               ]
-            },
-            {
-              "key": "occupation",
-              "label": "Occupation",
-              "type": "text"
             },
             {
               "key": "phone",
@@ -920,8 +1405,24 @@
               "key": "email",
               "label": "Email",
               "type": "text"
+            },
+            {
+              "key": "occupation",
+              "label": "Occupation",
+              "type": "text",
+              "hideInTable": true
+            },
+            {
+              "key": "status",
+              "label": "Record status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Inactive"
+              ]
             }
-          ]
+          ],
+          "hidden": true
         },
         {
           "id": "pastStudents",
@@ -1043,15 +1544,10 @@
       "icon": "wallet",
       "leaves": [
         {
-          "id": "feeCollection",
-          "key": "nav.eduPayments",
-          "path": "payments",
+          "id": "feesPayInvoice",
+          "key": "nav.eduFeesPayInvoice",
+          "path": "fees-pay-invoice",
           "fields": [
-            {
-              "key": "receiptNo",
-              "label": "Receipt No",
-              "type": "text"
-            },
             {
               "key": "student",
               "label": "Student",
@@ -1059,25 +1555,24 @@
               "required": true
             },
             {
+              "key": "reference",
+              "label": "Invoice reference",
+              "type": "text"
+            },
+            {
               "key": "amount",
               "label": "Amount",
-              "type": "number",
-              "required": true
+              "type": "number"
             },
             {
-              "key": "method",
-              "label": "Payment method",
+              "key": "status",
+              "label": "Status",
               "type": "select",
               "options": [
-                "Cash",
-                "Mobile Money",
-                "Bank"
+                "Unpaid",
+                "Partial",
+                "Paid"
               ]
-            },
-            {
-              "key": "date",
-              "label": "Payment date",
-              "type": "date"
             }
           ]
         },
@@ -1232,6 +1727,44 @@
               "key": "remarks",
               "label": "Remarks",
               "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "dueFeesInvoice",
+          "key": "nav.eduDueFeesInvoice",
+          "path": "due-fees-invoice",
+          "fields": [
+            {
+              "key": "student",
+              "label": "Student",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "reference",
+              "label": "Invoice reference",
+              "type": "text"
+            },
+            {
+              "key": "amount",
+              "label": "Amount due",
+              "type": "number"
+            },
+            {
+              "key": "dueDate",
+              "label": "Due date",
+              "type": "date"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Unpaid",
+                "Partial",
+                "Paid"
+              ]
             }
           ]
         },
@@ -1992,6 +2525,13 @@
               ]
             },
             {
+              "key": "academicYear",
+              "label": "Academic Year / Session",
+              "type": "select",
+              "source": "academicYear",
+              "valueKey": "name"
+            },
+            {
               "key": "term",
               "label": "Term",
               "type": "select",
@@ -2192,212 +2732,6 @@
           ]
         },
         {
-          "id": "marksheetTemplate",
-          "key": "nav.eduMarksheetTemplate",
-          "path": "marksheet-template",
-          "fields": [
-            {
-              "key": "branch",
-              "label": "Branch",
-              "type": "select",
-              "source": "branches",
-              "valueKey": "name",
-              "hideInForm": true
-            },
-            {
-              "key": "examName",
-              "label": "Exam Name",
-              "type": "select",
-              "source": "examSetup",
-              "valueKey": "examName",
-              "filterActiveTerm": true
-            },
-            {
-              "key": "templateName",
-              "label": "Template Name",
-              "type": "text",
-              "required": true
-            },
-            {
-              "key": "reportsheetTheme",
-              "label": "Reportsheet Theme",
-              "type": "select",
-              "keepOrder": true,
-              "options": [
-                "Theme 1",
-                "Theme 2",
-                "Theme 3",
-                "Theme 4",
-                "Theme 5",
-                "Theme 6"
-              ]
-            },
-            {
-              "key": "pageLayout",
-              "label": "Page Layout",
-              "type": "select",
-              "options": [
-                "Portrait",
-                "Landscape"
-              ],
-              "keepOrder": true,
-              "required": true
-            },
-            {
-              "key": "photoStyle",
-              "label": "Photo Style",
-              "type": "select",
-              "hideInTable": true,
-              "options": [
-                "Square - 320",
-                "Square - 240",
-                "Round - 320",
-                "Round - 240"
-              ],
-              "keepOrder": true,
-              "required": true
-            },
-            {
-              "key": "topSpace",
-              "label": "Top Space (px)",
-              "type": "number",
-              "hideInTable": true
-            },
-            {
-              "key": "bottomSpace",
-              "label": "Bottom Space (px)",
-              "type": "number",
-              "hideInTable": true
-            },
-            {
-              "key": "rightSpace",
-              "label": "Right Space (px)",
-              "type": "number",
-              "hideInTable": true
-            },
-            {
-              "key": "leftSpace",
-              "label": "Left Space (px)",
-              "type": "number",
-              "hideInTable": true
-            },
-            {
-              "key": "leftSignature",
-              "label": "Left Signature",
-              "type": "image",
-              "hideInTable": true,
-              "display": "file"
-            },
-            {
-              "key": "middleSignature",
-              "label": "Middle Signature",
-              "type": "image",
-              "hideInTable": true,
-              "display": "file"
-            },
-            {
-              "key": "rightSignature",
-              "label": "Right Signature",
-              "type": "image",
-              "hideInTable": true,
-              "display": "file"
-            },
-            {
-              "key": "logoImage",
-              "label": "Logo Image",
-              "type": "image",
-              "hideInTable": true,
-              "display": "file"
-            },
-            {
-              "key": "backgroundImage",
-              "label": "Background Image",
-              "type": "image",
-              "display": "file"
-            },
-            {
-              "key": "headerContent",
-              "label": "Header Content",
-              "type": "textarea",
-              "hideInTable": true,
-              "required": true,
-              "display": "tokens"
-            },
-            {
-              "key": "headerAlignments",
-              "label": "Header Alignments",
-              "type": "textarea",
-              "hideInTable": true,
-              "required": false,
-              "hideInForm": true
-            },
-            {
-              "key": "middleContent",
-              "label": "Middle Content",
-              "type": "textarea",
-              "hideInTable": true,
-              "required": false,
-              "display": "tokens"
-            },
-            {
-              "key": "middleAlignments",
-              "label": "Middle Alignments",
-              "type": "textarea",
-              "hideInTable": true,
-              "required": false,
-              "hideInForm": true
-            },
-            {
-              "key": "footerContent",
-              "label": "Footer Content",
-              "type": "textarea",
-              "hideInTable": true,
-              "required": true,
-              "display": "tokens"
-            },
-            {
-              "key": "footerAlignments",
-              "label": "Footer Alignments",
-              "type": "textarea",
-              "hideInTable": true,
-              "required": false,
-              "hideInForm": true
-            },
-            {
-              "key": "certificateData",
-              "label": "Certificate Data",
-              "type": "textarea",
-              "hideInTable": true,
-              "required": false,
-              "hideInForm": true
-            },
-            {
-              "key": "reportOptions",
-              "label": "Report Options",
-              "type": "multiselect",
-              "hideInTable": true,
-              "display": "checkboxes",
-              "keepOrder": true,
-              "options": [
-                "Attendance Percentage",
-                "Grading Scale",
-                "Position",
-                "Cumulative Average",
-                "Class Average",
-                "Subject Position",
-                "Remark",
-                "Result"
-              ]
-            },
-            {
-              "key": "createdAt",
-              "label": "Created At",
-              "type": "date",
-              "hideInForm": true
-            }
-          ]
-        },
-        {
           "id": "examSchedule",
           "key": "nav.eduExamSchedule",
           "path": "exam-schedule",
@@ -2547,6 +2881,12 @@
           ]
         },
         {
+          "id": "gpaCgpaEngine",
+          "key": "nav.eduGpaCgpaEngine",
+          "path": "gpa-cgpa-engine",
+          "fields": []
+        },
+        {
           "id": "gradesRange",
           "key": "nav.eduGradesRange",
           "path": "grades-range",
@@ -2565,6 +2905,11 @@
             {
               "key": "maxScore",
               "label": "Max score",
+              "type": "number"
+            },
+            {
+              "key": "gradePoint",
+              "label": "Grade Point",
               "type": "number"
             },
             {
@@ -3612,9 +3957,31 @@
               "type": "text"
             },
             {
+              "key": "category",
+              "label": "Category",
+              "type": "select",
+              "options": [
+                "Residential"
+              ],
+              "required": true
+            },
+            {
               "key": "capacity",
-              "label": "Capacity",
-              "type": "number"
+              "label": "No Of Beds",
+              "type": "number",
+              "required": true
+            },
+            {
+              "key": "costPerBed",
+              "label": "Cost Per Bed",
+              "type": "number",
+              "required": true
+            },
+            {
+              "key": "remarks",
+              "label": "Remarks",
+              "type": "textarea",
+              "hideInTable": true
             },
             {
               "key": "status",
@@ -4937,30 +5304,84 @@
           "path": "homework",
           "fields": [
             {
+              "key": "className",
+              "label": "Class",
+              "type": "select",
+              "source": "classList",
+              "valueKey": "name",
+              "required": true
+            },
+            {
+              "key": "section",
+              "label": "Section",
+              "type": "select",
+              "source": "academicSections",
+              "valueKey": "name",
+              "required": true
+            },
+            {
+              "key": "subjectGroup",
+              "label": "Subject Group",
+              "type": "select",
+              "source": "subjectGroup",
+              "valueKey": "name",
+              "required": true
+            },
+            {
+              "key": "subject",
+              "label": "Subject",
+              "type": "select",
+              "source": "subjectList",
+              "valueKey": "name",
+              "required": true
+            },
+            {
+              "key": "homeworkDate",
+              "label": "Homework Date",
+              "type": "date",
+              "required": true
+            },
+            {
+              "key": "dueDate",
+              "label": "Submission Date",
+              "type": "date",
+              "required": true
+            },
+            {
+              "key": "maxMarks",
+              "label": "Max Marks",
+              "type": "number"
+            },
+            {
+              "key": "attachment",
+              "label": "Attach Document",
+              "type": "visitorDocument"
+            },
+            {
+              "key": "instructions",
+              "label": "Description",
+              "type": "homeworkRichText",
+              "required": true
+            },
+            {
               "key": "title",
               "label": "Title",
               "type": "text",
               "required": true
             },
             {
-              "key": "className",
-              "label": "Class",
-              "type": "text"
-            },
-            {
-              "key": "subject",
-              "label": "Subject",
-              "type": "text"
-            },
-            {
-              "key": "dueDate",
-              "label": "Due date",
+              "key": "evaluationDate",
+              "label": "Evaluation Date",
               "type": "date"
             },
             {
-              "key": "instructions",
-              "label": "Instructions",
-              "type": "text"
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Assigned",
+                "Closed"
+              ]
             }
           ]
         },
@@ -5003,35 +5424,126 @@
           ]
         },
         {
+          "id": "onlineExamReports",
+          "key": "nav.eduOnlineExamReports",
+          "path": "online-exam-reports",
+          "fields": [
+            {
+              "key": "title",
+              "label": "Report title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "fromDate",
+              "label": "From date",
+              "type": "date"
+            },
+            {
+              "key": "toDate",
+              "label": "To date",
+              "type": "date"
+            },
+            {
+              "key": "type",
+              "label": "Type",
+              "type": "select",
+              "options": [
+                "Results",
+                "Attempts",
+                "Summary"
+              ]
+            }
+          ],
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "onlineExamManagement",
+      "key": "nav.eduOnlineExamMenu",
+      "path": "online-exam",
+      "icon": "clipboard",
+      "leaves": [
+        {
           "id": "onlineExam",
           "key": "nav.eduOnlineExam",
           "path": "online-exam",
           "fields": [
             {
+              "key": "quiz",
+              "label": "Quiz",
+              "type": "examQuiz"
+            },
+            {
               "key": "title",
-              "label": "Exam title",
+              "label": "Exam Title",
               "type": "text",
+              "required": true
+            },
+            {
+              "key": "examFrom",
+              "label": "Exam From",
+              "type": "datetime-local",
+              "required": true
+            },
+            {
+              "key": "examTo",
+              "label": "Exam To",
+              "type": "datetime-local",
+              "required": true
+            },
+            {
+              "key": "autoResultPublishDate",
+              "label": "Auto Result Publish Date",
+              "type": "datetime-local"
+            },
+            {
+              "key": "durationClock",
+              "label": "Time Duration",
+              "type": "examDuration",
+              "required": true
+            },
+            {
+              "key": "attemptLimit",
+              "label": "Attempt",
+              "type": "number",
+              "required": true
+            },
+            {
+              "key": "passingPercentage",
+              "label": "Passing Percentage",
+              "type": "number",
+              "required": true
+            },
+            {
+              "key": "answerWordLimit",
+              "label": "Answer Word Limit",
+              "type": "number",
+              "required": true
+            },
+            {
+              "key": "examFlags",
+              "label": "Exam Options",
+              "type": "examFlags"
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "examRichText",
               "required": true
             },
             {
               "key": "className",
               "label": "Class",
-              "type": "text"
+              "type": "text",
+              "hideInForm": true
             },
             {
               "key": "subject",
               "label": "Subject",
-              "type": "text"
-            },
-            {
-              "key": "date",
-              "label": "Exam date",
-              "type": "date"
-            },
-            {
-              "key": "duration",
-              "label": "Duration (minutes)",
-              "type": "number"
+              "type": "text",
+              "hideInForm": true
             }
           ]
         },
@@ -5047,9 +5559,51 @@
               "required": true
             },
             {
+              "key": "group",
+              "label": "Group",
+              "type": "select",
+              "source": "questionGroup",
+              "valueKey": "groupName"
+            },
+            {
+              "key": "className",
+              "label": "Class",
+              "type": "select",
+              "source": "classList",
+              "valueKey": "name"
+            },
+            {
+              "key": "section",
+              "label": "Section",
+              "type": "select",
+              "source": "academicSections",
+              "valueKey": "name"
+            },
+            {
+              "key": "questionType",
+              "label": "Question Type",
+              "type": "select",
+              "options": [
+                "Single Choice",
+                "Multiple Choice",
+                "True/False",
+                "Descriptive"
+              ]
+            },
+            {
+              "key": "level",
+              "label": "Question Level",
+              "type": "select",
+              "options": [
+                "Easy",
+                "Medium",
+                "Hard"
+              ]
+            },
+            {
               "key": "question",
               "label": "Question",
-              "type": "text",
+              "type": "textarea",
               "required": true
             },
             {
@@ -5172,39 +5726,6 @@
               ]
             }
           ]
-        },
-        {
-          "id": "onlineExamReports",
-          "key": "nav.eduOnlineExamReports",
-          "path": "online-exam-reports",
-          "fields": [
-            {
-              "key": "title",
-              "label": "Report title",
-              "type": "text",
-              "required": true
-            },
-            {
-              "key": "fromDate",
-              "label": "From date",
-              "type": "date"
-            },
-            {
-              "key": "toDate",
-              "label": "To date",
-              "type": "date"
-            },
-            {
-              "key": "type",
-              "label": "Type",
-              "type": "select",
-              "options": [
-                "Results",
-                "Attempts",
-                "Summary"
-              ]
-            }
-          ]
         }
       ]
     },
@@ -5214,6 +5735,12 @@
       "path": "students-settings",
       "icon": "settings",
       "leaves": [
+        {
+          "id": "applicationsOpenSettingsShortcut",
+          "key": "nav.eduApplicationsOpen",
+          "path": "applications-open",
+          "fields": []
+        },
         {
           "id": "yearGroup",
           "key": "nav.eduYearGroup",
@@ -5321,6 +5848,12 @@
               "type": "text"
             }
           ]
+        },
+        {
+          "id": "studentTermDates",
+          "key": "nav.eduStudentTermDates",
+          "path": "term-dates",
+          "fields": []
         }
       ]
     },
@@ -5435,22 +5968,10 @@
       "icon": "sliders",
       "leaves": [
         {
-          "id": "feeGroups",
-          "key": "nav.eduFeeGroups",
-          "path": "fee-groups",
-          "fields": [
-            {
-              "key": "name",
-              "label": "Fee group",
-              "type": "text",
-              "required": true
-            },
-            {
-              "key": "description",
-              "label": "Description",
-              "type": "text"
-            }
-          ]
+          "id": "feeIntegration",
+          "key": "nav.eduFeeIntegration",
+          "path": "fee-integration",
+          "fields": []
         },
         {
           "id": "feeTypes",
@@ -5472,8 +5993,124 @@
               "key": "defaultAmount",
               "label": "Default amount",
               "type": "number"
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Disabled"
+              ]
+            },
+            {
+              "key": "feesMapping",
+              "label": "Fees Mapping",
+              "type": "text"
             }
           ]
+        },
+        {
+          "id": "feeGroups",
+          "key": "nav.eduFeeGroups",
+          "path": "fee-groups",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Fee group",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "fineSetup",
+          "key": "nav.eduFineSetup",
+          "path": "fine-setup",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Fine name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "amount",
+              "label": "Amount",
+              "type": "number"
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Disabled"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feesDiscount",
+          "key": "nav.eduFeesDiscount",
+          "path": "fees-discount",
+          "fields": [
+            {
+              "key": "name",
+              "label": "Discount name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "discountType",
+              "label": "Discount type",
+              "type": "select",
+              "options": [
+                "Fixed amount",
+                "Percentage"
+              ]
+            },
+            {
+              "key": "value",
+              "label": "Discount value",
+              "type": "number"
+            },
+            {
+              "key": "description",
+              "label": "Description",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "label": "Status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Disabled"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "paymentAccounts",
+          "key": "nav.eduPaymentAccounts",
+          "path": "payment-accounts",
+          "fields": []
         },
         {
           "id": "paymentMethods",
@@ -5499,29 +6136,6 @@
                 "Active",
                 "Disabled"
               ]
-            }
-          ]
-        },
-        {
-          "id": "lateFeeRules",
-          "key": "nav.eduLateFeeRules",
-          "path": "late-fee-rules",
-          "fields": [
-            {
-              "key": "name",
-              "label": "Rule name",
-              "type": "text",
-              "required": true
-            },
-            {
-              "key": "graceDays",
-              "label": "Grace days",
-              "type": "number"
-            },
-            {
-              "key": "chargePerDay",
-              "label": "Charge per day",
-              "type": "number"
             }
           ]
         }
