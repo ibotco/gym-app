@@ -1,0 +1,7 @@
+.education-news-window { flex: 1; min-width: 0; overflow: hidden; }
+.education-news-track { display: flex; width: max-content; animation: education-news-scroll 40s linear infinite; }
+.education-news-group { display: flex; flex-shrink: 0; align-items: center; }
+.education-news-link { display: inline-block; padding-right: 3rem; color: rgba(255,255,255,.9); white-space: nowrap; }
+.education-news-paused, .education-news-window:hover .education-news-track, .education-news-window:focus-within .education-news-track { animation-play-state: paused; }
+@keyframes education-news-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .education-news-window { overflow-x: auto; } .education-news-track { animation: none; transform: none; } .education-news-duplicate { display: none; } }
