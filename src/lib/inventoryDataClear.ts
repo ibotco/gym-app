@@ -1,0 +1,12 @@
+export const INVENTORY_DATA_MENUS=[
+ {id:'products',label:'Products and Services',desc:'Product and service records only. Suppliers, sales, procurement, stock history and accounting are not removed or repaired.'},
+ {id:'price',label:'Update Price',desc:'An action, not a separately stored collection. Prices belong to product records; there is no independent price history to clear.'},
+ {id:'labels',label:'Print Labels',desc:'An action using product data; no independently saved label collection.'},
+ {id:'importProducts',label:'Import Products',desc:'The current import flow is a demo and does not persist a separate import collection.'},
+ {id:'importStock',label:'Import Opening Stock',desc:'The current import flow is a demo and does not persist a separate import collection.'},
+ {id:'settings',label:'Product Settings',desc:'Inventory categories, variations, brands, units, warranties and price groups. Product references are not repaired.'},
+ {id:'stock',label:'Stock Management',desc:'Stock movements, transfers, adjustments, counts and alerts. Does not reset product quantities or reverse posted inventory and accounting entries.'},
+] as const
+export const INVENTORY_DATA_KEYS:Record<string,string[]>={products:['fitpro_inventory'],settings:['fitpro_inventory_categories','fitpro_inv_variations','fitpro_inv_categories','fitpro_inv_brands','fitpro_inv_units','fitpro_inv_warranties','fitpro_inv_price_groups'],stock:['fitpro_stock_movements','fitpro_stock_transfers','fitpro_stock_adjustments','fitpro_stock_counts','fitpro_stock_alerts']}
+export const INVENTORY_SEED_MARKER='fitpro_seed_merge_suppressed:fitpro_inventory'
+export function planInventoryDataClear(stores:Record<string,string>,fallbacks:Record<string,unknown>,ids:readonly string[]){const selected=new Set(ids),changes:Record<string,string>={},counts:Record<string,number>={};for(const [id,keys] of Object.entries(INVENTORY_DATA_KEYS)){counts[id]=0;for(const key of keys){let value:unknown;try{value=key in stores?JSON.parse(stores[key]):fallbacks[key]}catch{throw new Error(`Cannot inspect ${key}.`)}if(!Array.isArray(value))throw new Error(`Invalid inventory data in ${key}.`);const effective=key==='fitpro_inventory'?fallbacks[key]:value;if(!Array.isArray(effective))throw new Error(`Invalid inventory data in ${key}.`);counts[id]+=effective.length;if(selected.has(id))changes[key]='[]'}if(id==='products'&&selected.has(id))changes[INVENTORY_SEED_MARKER]='1'}return {changes,counts}}

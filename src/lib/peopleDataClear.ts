@@ -1,0 +1,10 @@
+export const PEOPLE_DATA_MENUS=[
+ {id:'imageshop',label:'Imageshop',desc:'Browser-stored images and custom folder names only. Pictures and folders in the server’s cropped_photo directory are not removed; the built-in Main Folder remains.'},
+ {id:'members',label:'Members',desc:'Member records only. Memberships, sales, invoices, attendance and other linked records are not removed or repaired.'},
+ {id:'suppliers',label:'Supplier management',desc:'Suppliers and supplier categories. Procurement documents, stock and accounting entries are not removed or repaired.'},
+ {id:'leads',label:'Leads CRM',desc:'Lead records only; linked customers and sales remain.'},
+ {id:'customers',label:'Customer management',desc:'Customer records and customer categories. Sales, invoices and payments remain unchanged.'},
+] as const
+export const PEOPLE_DATA_KEYS:Record<string,string[]>={imageshop:['fitpro_imageshop_v1','fitpro_imageshop_folders_v1'],members:['fitpro_members'],suppliers:['fitpro_suppliers','fitpro_supplier_categories'],leads:['fitpro_leads'],customers:['fitpro_customers','fitpro_customer_categories']}
+export const PEOPLE_SEED_MARKER_PREFIX='fitpro_seed_merge_suppressed:'
+export function planPeopleDataClear(stores:Record<string,string>,fallbacks:Record<string,unknown>,ids:readonly string[]){const selected=new Set(ids),changes:Record<string,string>={},counts:Record<string,number>={};for(const [id,keys] of Object.entries(PEOPLE_DATA_KEYS)){counts[id]=0;for(const key of keys){let value:unknown;try{value=key in stores?JSON.parse(stores[key]):fallbacks[key]}catch{throw new Error(`Cannot inspect ${key}.`)}if(!Array.isArray(value))throw new Error(`Invalid People data in ${key}.`);const effective=(key==='fitpro_suppliers'||key==='fitpro_customers')?fallbacks[key]:value;if(!Array.isArray(effective))throw new Error(`Invalid People data in ${key}.`);counts[id]+=effective.length;if(selected.has(id))changes[key]='[]'}if(selected.has(id)&&id==='suppliers')changes[PEOPLE_SEED_MARKER_PREFIX+'fitpro_suppliers']='1';if(selected.has(id)&&id==='customers')changes[PEOPLE_SEED_MARKER_PREFIX+'fitpro_customers']='1'}return {changes,counts}}

@@ -1,0 +1,3 @@
+/** Durations are displayed as HH:MM:SS; legacy exams store minutes. */
+export function clockFromMinutes(value:unknown):string{const n=Number(value);if(!Number.isFinite(n)||n<=0)return '';const seconds=Math.round(n*60);return `${String(Math.floor(seconds/3600)).padStart(2,'0')}:${String(Math.floor(seconds%3600/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`}
+export function durationMinutes(value:string):number|null{const m=/^(\d{2,3}):([0-5]\d):([0-5]\d)$/.exec(value.trim());if(!m)return null;const seconds=Number(m[1])*3600+Number(m[2])*60+Number(m[3]);return seconds>0?seconds/60:null}
