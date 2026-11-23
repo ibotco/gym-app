@@ -1,0 +1,11 @@
+// certificate — barrel (auto-generated for maintainability)
+export * from './CertificateBuilder'
+export * from './CertificateBulkGenerationPage'
+export * from './CertificateGenerationPage'
+export * from './CertificateRegisterPage'
+export * from './CertificateReportsPage'
+export * from './CertificateSettingsPage'
+export * from './CertificateShared'
+export * from './CertificateTemplatesPage'
+export * from './CertificateTypesPage'
+export * from './CertificateVerificationPage'
